@@ -5,21 +5,15 @@
 		
 		if(typeof server_url == "undefined"){ server_url = "https://ukpm_api.intortuscs.co.uk/"; }
 		
-		var encryptor = new JSEncrypt();
 		var decryptor = new JSEncrypt();
+		
+		var iv, Key;
 				
-		this.key = "-----BEGIN PUBLIC KEY-----\r\n";
-		this.key += $client_key.replace(/\\s/g, "\r\n");
-		this.key += "\r\n-----END PUBLIC KEY-----";
-
 		var secret = "-----BEGIN RSA PRIVATE KEY-----\r\n";
 		secret += $client_secret.replace(/\\s/g, "\r\n");
 		secret += "\r\n-----END RSA PRIVATE KEY-----";
-		
-		this.serverAddress = "";
 				
-		encryptor.setPublicKey(this.key, "010001");
-		decryptor.setPrivateKey(this.secret, "010001");
+		decryptor.setPrivateKey(secret);
 		
 		var serialiseObject = function(obj) {
 			var pairs = [];
@@ -31,34 +25,58 @@
 					pairs.push(serialiseObject(obj[prop]));
 					continue;
 				}
-				pairs.push(prop + '=' + obj[prop]);
+				pairs.push(encodeURIComponent(prop) + '=' + encodeURIComponent(obj[prop]));
 			}
 			return pairs.join('&');
 		}
 		
+		function hex2a(hex) {
+			var str = '';
+			for (var i = 0; i < hex.length; i += 2)
+				str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+			return str;
+		}
 		
-		var encrypt = function UKPM_Encrypt(raw){
-			return new Promise(function(resolve, reject) {
-				var enc = encryptor.encrypt(raw);
-				resolve(enc);
+		var getEncryptionKey = function(){
+			var formData = new FormData();
+			formData.append("client_key", $client_key);
+			
+			fetch("https://ukpm_api.intortuscs.co.uk/test/createKey", {
+				method		: 'POST',
+				mode		: 'cors',
+				body		: formData
+			}).then(function(response){
+				return response.json();
+			}).then(function(data){
+				console.log({"iv_b64":data.key.iv, "key_b64":data.key.secret});
+				console.log({"iv_js":atob(data.key.iv), "key_js":atob(data.key.secret)});
+				console.log({"iv_js_d":decryptor.decrypt(atob(data.key.iv)), "key_js_d":decryptor.decrypt(atob(data.key.secret))});
+				console.log({"iv_crypt":CryptoJS.enc.Base64.parse(data.key.iv), "key_crypt":CryptoJS.enc.Base64.parse(data.key.secret)});
+				console.log({"iv_crypt_d":decryptor.decrypt(CryptoJS.enc.Base64.parse(data.key.iv)), "key_crypt_d":decryptor.decrypt(CryptoJS.enc.Base64.parse(data.key.secret))});
+			}).catch(function(ex){
+				throw ex;
 			});
-		};
+		}
+		
+		getEncryptionKey();
 				
 		var decrypt = function UKPM_Decrypt(enc){
 			return new Promise(function(resolve, reject) {
 				var raw = decryptor.decrypt(enc);
-				resolve(JSON.parse(raw));
+				resolve(raw);
 			});
 		};
 		
 		this.post = function(url, params){
-			if(typeof params === "undefined"){ params = {}; }
-			params.pub = $client_key;
+			var formData = new FormData();
+			for(var index in params){
+				formData.append(index, params[index]);
+			}
 			return new Promise(function(resolve, reject){
 				fetch(server_url+url, {
 					method		: 'POST',
 					mode		: 'cors',
-					body		: serialiseObject(params)
+					body		:  formData
 				}).then(function(response){
 					if(response.ok){
 						return response.text();
