@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Example Javascript UKPM Communicator</title>
+		<script type="text/javascript" src="js/jsencrypt.min.js"></script>
+		<script type="text/javascript" src="js/ukpm.js"></script>
+		<script type="text/javascript">
+			var client_key = "":
+			var client_secret = "";
+			
+			var client = new window.UKPM(
+				client_key,
+				client_secret
+			);
+			
+			client.post('forces/list').then(function(result){
+				// handle result
+				console.log("Successfull call");
+				console.log(result);
+			}).catch(function(err){
+				console.log("There has been an error");
+				console.log(err);
+			});
+			
+			/*client.get('users/profile', {'id':1}).then(function(profile){
+				// handle displaying profile
+			});*/
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>
