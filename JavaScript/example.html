@@ -2,18 +2,21 @@
 <html>
 	<head>
 		<title>Example Javascript UKPM Communicator</title>
-		<script type="text/javascript" src="js/jsencrypt.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script>
 		<script type="text/javascript" src="js/ukpm.js"></script>
+		<script type="text/javascript" src="js/sodium.js"></script>
 		<script type="text/javascript">
-			var client_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDReoapvdkG9IF82ztTebtC5ATi\\\\seVfu62rzmOQVTZ8b8R3wNjEfviN2s+KXN1M2j5dr8Mvj3XH8NSf86go8ZnO7meGE\\\\sm9UGhZRjG6exyksBK0rS4GUNmffNLiK3dKZrFekf39B6oehG115xdhuS/Nhjwk5X\\\\sN3KkjyVsXUOT3vn/jwIDAQAB";
-			var client_secret = "MIICXwIBAAKBgQDDHAaHxDaFsnrvqa0Y5VMok96TPlbh1s6l9Q+xZNaoXCm8hYuf\\\\sBZN7O1oD14woO+0F2sRVUnoAUTmsm6aIG5Acauq5CCNjGWIGbBLUQe44CpJCyZPf\\\\sp2f0h2alRNpmgQ8riyfoxIkZYnRb5YPcPjn9/h8WcFI6y0/LtdJ03VIAcwIDAQAB\\\\sAoGBAJkJiYHCgPWbilwkHfbyIakpWyLpeeKIx+xabSW6r7i9GauaoGpqSEUXx8JN\\\\stsz0PDUkZG18VN+c1n0yVYxa+kxBX4EIDlZoaQr2I3VonnK/2t7DTzxMjGeNzu8u\\\\scAIK2S4osjGceVkXcRpU9n6Px+uiYwgvZ9Wy/YQg6ksS5naxAkEA4VmeALb8+mv7\\\\siNPODk+xkvi0Voxzyo5o42uZJ9L9JPz+COmhnOsL4H8z6s91+38pkE/ks33Ex50L\\\\shJB2Epz32QJBAN2leNXqMWNqLkAMKkWWh8pV4RuDr42BA7GdFqybrjWu//Tuq481\\\\sNGm1cUFur5sJ750SYJ9poNLsJnxVx/ci9ysCQQC6JAJlaMFyQPvWu826+I0fb5vW\\\\s2dFTgWqWX+x0fs1nXiqgRgueyHBZEflafd9gzFsSv0uUD9EZaVl4OLOvEEWRAkEA\\\\siXVJz0CCiKkdLdNdk/KbHDzOcoXkpdlRNSG7IikajWiOjJRICXRxoO1J486FUZ2D\\\\s4OG40qRrfOO/qnR4oygoKQJBAJMd3vYs3nzU5bgqy1D8PqF90HNF1j0BGsiZQtHw\\\\sXvqtXxbpHOoTyxmO/v/d7W2MbApQLI8PlrGPRogIfKgzyX8=";
+		(async() => {
+			await sodium.ready;
+			var client_key = "";
+			var client_secret = "";
 			
 			var client = new window.UKPM(
 				client_key,
 				client_secret
 			);
-			
-			client.post('officers/force', {"force_id":150}).then(function(result){
+		
+			client.post('test/test', {"force_id":150}).then(function(result){
 				// handle result
 				console.log("Successfull call");
 				console.log(result);
@@ -21,10 +24,11 @@
 				console.log("There has been an error");
 				console.log(err);
 			});
-			
+		
 			/*client.get('users/profile', {'id':1}).then(function(profile){
 				// handle displaying profile
 			});*/
+		})();
 		</script>
 	</head>
 	<body>
