@@ -30,46 +30,46 @@
 
 		this.forces = {
 			"List": function(){
-				client.post('forces/list', {});
+				return client.post('forces/list', {});
 			}
 		};
 
 		this.officer = {
 			"Get": function(officer_id){
-				client.post('officer/get', {"officer_id": officer_id});
+				return client.post('officer/get', {"officer_id": officer_id});
 			}
 		};
 
 		this.officers = {
 			"ByForce": function(force_id){
-				client.post('officers/force', {"force_id": force_id});
+				return client.post('officers/force', {"force_id": force_id});
 			},
 			"ByRank": function(rank_id){
-				client.post('officers/rank', {"rank_id": rank_id});
+				return client.post('officers/rank', {"rank_id": rank_id});
 			},
 			"BySearchTerm": function(search_term){
-				client.post('officers/search', {"search_term": search_term});
+				return client.post('officers/search', {"search_term": search_term});
 			},
 			"ByDayInMonth": function(day, month){
-				client.post('officers/day', {"day": day, "month":month});
+				return client.post('officers/day', {"day": day, "month":month});
 			}
 		};
 
 		this.ranks = {
 			"List": function(){
-				client.post('ranks/list', {});
+				return client.post('ranks/list', {});
 			}
 		};
 
 		this.wall = {
 			"Get": function(){
-				client.post('wall/get', {});
+				return client.post('wall/get', {});
 			}
 		};
 
 		this.test = {
 			"Test": function(){
-				client.post('test/test', {})
+				return client.post('test/test', {})
 			}
 		};
 		

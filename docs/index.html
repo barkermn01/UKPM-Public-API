@@ -23,8 +23,11 @@
 						<li class="selector php">
 							<a href="#connector-php">PHP</a>
 						</li>
-						<li class="selector js">
-							<a href="#connector-js">Javascript</a>
+						<li class="selector jsv1">
+							<a href="#connector-jsv1">Javascript V1</a>
+						</li>
+						<li class="selector jsv2">
+							<a href="#connector-jsv2">Javascript V2</a>
 						</li>
 					</ul>
 				</li>
@@ -108,7 +111,8 @@
 				<div class="lang-selector">
 					<ul class="selected-lang">
 						<li data-for="php" class="lang-option php">PHP</li>
-						<li data-for="js" class="lang-option js">Javascript</li>
+						<li data-for="jsv1" class="lang-option jsv1">JS v1</li>
+						<li data-for="jsv2" class="lang-option jsv2">JS v2</li>
 						<li data-for="all" class="lang-option all">All</li>
 					</ul>
 					<div class="clear"></div>
@@ -144,12 +148,35 @@ $secretKey = "" /* This should be your secret key */;
 $connector = new Connector(new Client($publicKey, $secretKey), true);</code></pre>
 					</p>
 				</div>
-				<div class="connector-js selector js">
+				<div class="connector-js selector jsv1">
 					<a id="connector-js">
-						<h2>JavaScript Connector</h2>
+						<h2>JavaScript V1 Connector</h2>
 					</a>
 					<p>
-						The JavaScript connector
+						The JavaScript V1 connector
+						<span class="lang">HTML</span><pre><code class="language-html">&lt;script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/ukpm.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/sodium.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+(async() =&gt; {
+	await sodium.ready;
+	var client_key = "" /* This should be your public key */;
+	var client_secret = "" /* This should be your secret key */;
+
+	var client = new window.UKPM(
+		client_key,
+		client_secret
+	);
+})();
+&lt;/script&gt;</code></pre>
+					</p>
+				</div>
+				<div class="connector-js selector jsv2">
+					<a id="connector-js">
+						<h2>JavaScript V2 Connector</h2>
+					</a>
+					<p>
+						The JavaScript V2 connector
 						<span class="lang">HTML</span><pre><code class="language-html">&lt;script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="js/ukpm.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="js/sodium.js"&gt;&lt;/script&gt;
@@ -189,10 +216,22 @@ $connector = new Connector(new Client($publicKey, $secretKey), true);</code></pr
 print_r($output);</code></pre>
 								</p>
 							</div>
-						<div class="selector js">
+							<div class="selector jsv1">
 								<p>
 									&nbsp;
-									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('test/test', {}).then(function(result){
+									<span class="lang js">Javascript v1</span><pre><code class="language-js">client.post('test/test', {}).then(function(result){
+	console.log("Success");
+	console.log(result);
+}).catch(function(err){
+	console.log("failure");
+	console.log(err);
+});</code></pre>
+								</p>
+							</div>
+							<div class="selector jsv2">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript v2</span><pre><code class="language-js">client.test.Test().then(function(result){
 	console.log("Success");
 	console.log(result);
 }).catch(function(err){
@@ -220,10 +259,16 @@ print_r($output);</code></pre>
 									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;wall-&gt;get();</code></pre>
 								</p>
 							</div>
-							<div class="selector js">
+							<div class="selector jsv1">
 								<p>
 									&nbsp;
-									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('wall/get', {});</code></pre>
+									<span class="lang js">Javascript v1</span><pre><code class="language-js">client.post('wall/get', {});</code></pre>
+								</p>
+							</div>
+							<div class="selector jsv2">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript v2</span><pre><code class="language-js">client.wall.Get();</code></pre>
 								</p>
 							</div>
 						</div>
@@ -245,10 +290,16 @@ print_r($output);</code></pre>
 									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;officer-&gt;get($officer_id);</code></pre>
 								</p>
 							</div>
-							<div class="selector js">
+							<div class="selector jsv1">
 								<p>
 									&nbsp;
-									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('officer/get', {"officer_id": officer_id});</code></pre>
+									<span class="lang js">Javascript v1</span><pre><code class="language-js">client.post('officer/get', {"officer_id": officer_id});</code></pre>
+								</p>
+							</div>
+							<div class="selector jsv2">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript v2</span><pre><code class="language-js">client.officer.Get(officer_id);</code></pre>
 								</p>
 							</div>
 						</div>
@@ -270,10 +321,16 @@ print_r($output);</code></pre>
 									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;ranks-&gt;list();</code></pre>
 								</p>
 							</div>
-							<div class="selector js">
+							<div class="selector jsv1">
 								<p>
 									&nbsp;
-									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('ranks/list', {});</code></pre>
+									<span class="lang js">Javascript v1</span><pre><code class="language-js">client.post('ranks/list', {});</code></pre>
+								</p>
+							</div>
+							<div class="selector jsv2">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript v2</span><pre><code class="language-js">client.ranks.List();</code></pre>
 								</p>
 							</div>
 						</div>
@@ -295,10 +352,16 @@ print_r($output);</code></pre>
 									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;forces-&gt;list();</code></pre>
 								</p>
 							</div>
-							<div class="selector js">
+							<div class="selector jsv1">
 								<p>
 									&nbsp;
-									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('forces/list', {});</code></pre>
+									<span class="lang js">Javascript v1</span><pre><code class="language-js">client.post('forces/list', {});</code></pre>
+								</p>
+							</div>
+							<div class="selector jsv2">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript v2</span><pre><code class="language-js">client.forces.List()</code></pre>
 								</p>
 							</div>
 						</div>
@@ -320,10 +383,16 @@ print_r($output);</code></pre>
 									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;officers-&gt;getByForce($force_id);</code></pre>
 								</p>
 							</div>
-							<div class="selector js">
+							<div class="selector jsv1">
 								<p>
 									&nbsp;
-									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('officers/force', {"force_id": force_id});</code></pre>
+									<span class="lang js">Javascript v1</span><pre><code class="language-js">client.post('officers/force', {"force_id": force_id});</code></pre>
+								</p>
+							</div>
+							<div class="selector jsv2">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript v2</span><pre><code class="language-js">client.officers.Force(force_id);</code></pre>
 								</p>
 							</div>
 						</div>
@@ -339,10 +408,16 @@ print_r($output);</code></pre>
 									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;officers-&gt;getByRank($rank_id);</code></pre>
 								</p>
 							</div>
-							<div class="selector js">
+							<div class="selector jsv1">
 								<p>
 									&nbsp;
-									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('officers/rank', {"rank_id": rank_id});</code></pre>
+									<span class="lang js">Javascript v1</span><pre><code class="language-js">client.post('officers/rank', {"rank_id": rank_id});</code></pre>
+								</p>
+							</div>
+							<div class="selector jsv2">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript v2</span><pre><code class="language-js">client.officers.Rank(rank_id);</code></pre>
 								</p>
 							</div>
 						</div>
@@ -358,10 +433,16 @@ print_r($output);</code></pre>
 									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;officers-&gt;getBySearchTerm($searchTerm);</code></pre>
 								</p>
 							</div>
-							<div class="selector js">
+							<div class="selector jsv1">
 								<p>
 									&nbsp;
-									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('officers/search', {"search_term": search_term});</code></pre>
+									<span class="lang js">Javascript v1</span><pre><code class="language-js">client.post('officers/search', {"search_term": search_term});</code></pre>
+								</p>
+							</div>
+							<div class="selector jsv2">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript v2</span><pre><code class="language-js">client.officers.search(search_term);</code></pre>
 								</p>
 							</div>
 						</div>
@@ -377,10 +458,16 @@ print_r($output);</code></pre>
 									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;officers-&gt;getByDayInMonth($day, $month);</code></pre>
 								</p>
 							</div>
-							<div class="selector js">
+							<div class="selector jsv1">
 								<p>
 									&nbsp;
-									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('officers/day', {"day": 01, "month":01});</code></pre>
+									<span class="lang js">Javascript v1</span><pre><code class="language-js">client.post('officers/day', {"day": 01, "month":01});</code></pre>
+								</p>
+							</div>
+							<div class="selector jsv2">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript v2</span><pre><code class="language-js">client.officers.Day(day, month);</code></pre>
 								</p>
 							</div>
 						</div>
