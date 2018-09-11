@@ -1,0 +1,100 @@
+/* CSS Document */
+.content {
+    position: absolute;
+    left: 250px;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+}
+
+.menu {
+    position: fixed;
+    left: 20px;
+    right: 250px;
+    top: 10px;
+    bottom: 0;
+}
+
+.menu a{
+    color:#272822;
+}
+
+ul, li{
+    margin:0;
+    padding:0;
+}
+
+ul > li > ul{
+    margin-left:20px;
+}
+
+.menu > ul > li{
+    margin-top:10px
+}
+
+.menu li{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+span.lang {
+    display: block;
+    position: absolute;
+    margin-top: 5px;
+    background-color: #272822;
+    border-radius: 6px;
+    padding: 3px;
+    margin-left: 9px;
+    border: 1px solid #272822;
+    color: #d621e0;
+    text-align: center;
+}
+
+li.lang-option {
+    float: left;
+    margin: 0;
+    padding: 5px;
+    list-style: none;
+    border-top: 1px solid #272822;
+    border-bottom: 1px solid #272822;
+    background-color:#272822;
+    color:#FFF;
+	cursor:pointer;
+}
+
+li.lang-option:hover{
+    background-color:rgb(99, 101, 88);
+}
+li.lang-option.active:hover{
+    background-color:rgb(99, 101, 88);
+}
+
+li.lang-option:first-child {
+    border-left: 1px solid #272822;
+    border-top-left-radius:6px;
+    border-bottom-left-radius:6px;
+}
+
+li.lang-option:last-child {
+    border-right: 1px solid #272822;
+    border-top-right-radius:6px;
+    border-bottom-right-radius:6px;
+}
+
+li.lang-option.active{
+    background-color:rgb(99, 101, 88);
+}
+
+div.clear{
+    clear:both;
+}
+
+.lang-selector {
+    position: fixed;
+    top: 425px;
+    left: 32px;
+    padding: 2px;
+    border-radius: 7px;
+    background-color: #d621e0;
+}

@@ -11,7 +11,7 @@
 			server_host = hostname;
 		}
 		
-		this.decryptMessage = function(encrypted){
+		function decryptMessage(encrypted){
 			return new Promise(function(resolve, reject){
 				let hex = encrypted.split("h");
 				let n = sodium.from_hex(hex[0]);
@@ -25,6 +25,53 @@
 				}
 			});
 		}
+
+		let client = this;
+
+		this.forces = {
+			"List": function(){
+				client.post('forces/list', {});
+			}
+		};
+
+		this.officer = {
+			"Get": function(officer_id){
+				client.post('officer/get', {"officer_id": officer_id});
+			}
+		};
+
+		this.officers = {
+			"ByForce": function(force_id){
+				client.post('officers/force', {"force_id": force_id});
+			},
+			"ByRank": function(rank_id){
+				client.post('officers/rank', {"rank_id": rank_id});
+			},
+			"BySearchTerm": function(search_term){
+				client.post('officers/search', {"search_term": search_term});
+			},
+			"ByDayInMonth": function(day, month){
+				client.post('officers/day', {"day": day, "month":month});
+			}
+		};
+
+		this.ranks = {
+			"List": function(){
+				client.post('ranks/list', {});
+			}
+		};
+
+		this.wall = {
+			"Get": function(){
+				client.post('wall/get', {});
+			}
+		};
+
+		this.test = {
+			"Test": function(){
+				client.post('test/test', {})
+			}
+		};
 		
 		this.post = function(url, params){
 			params["client_key"] = publicKey;
@@ -49,9 +96,10 @@
 					
 					try{
 						resp = JSON.parse(text);
-						reject({"responseType":"failure", "error":"Server Encryption Failed", "error_number":5003, "detailed_error":"the object returned from the server is not a valid JSON Response", "response":resp});
+						resolve(resp)
+						//reject({"responseType":"failure", "error":"Server Encryption Failed", "error_number":5003, "detailed_error":"the object returned from the server is not a valid JSON Response", "response":resp});
 					}catch(err){
-						self.decryptMessage(text).then(function(msg){
+						decryptMessage(text).then(function(msg){
 							try{
 								let obj = JSON.parse(msg);
 								resolve(obj);

@@ -1,0 +1,393 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+	<link rel="stylesheet" href="style/style.css">
+	<link rel="stylesheet" href="style/prism.css">
+	<script type="application/javascript" src="script/prism.js"></script>
+	<script type="application/javascript" src="script/jquery.min.js"></script>
+	<script type="application/javascript" src="script/srcview.js"></script>
+</head>
+
+<body>
+	<div class="App">
+		<div class="menu">
+			<ul>
+				<li>
+					<a href="#introduction">Introduction</a>
+				</li>
+				<li>
+					<a href="#connectors">Connectors</a>
+					<ul>
+						<li class="selector php">
+							<a href="#connector-php">PHP</a>
+						</li>
+						<li class="selector js">
+							<a href="#connector-js">Javascript</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#methods">Methods</a>
+					<ul>
+						<li>
+							<a href="#method_test">Test</a>
+							<ul>
+								<li>
+									<a href="#method_test_test">Test</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#method_wall">Wall</a>
+							<ul>
+								<li>
+									<a href="#method_wall_get">Get</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#method_officer">Officer</a>
+							<ul>
+								<li>
+									<a href="#method_officer_get">Get</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#method_ranks">Ranks</a>
+							<ul>
+								<li>
+									<a href="#method_ranks_list">List</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#method_forces">Forces</a>
+							<ul>
+								<li>
+									<a href="#method_forces_list">List</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#method_officers">Officers</a>
+							<ul>
+								<li>
+									<a href="#method_officers_force">ByForce</a>
+								</li>
+								<li>
+									<a href="#method_officers_rank">ByRank</a>
+								</li>
+								<li>
+									<a href="#method_officers_search">BySearchTerm</a>
+								</li>
+								<li>
+									<a href="#method_officers_daymonth">ByDayInMonth</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="content">
+			<div class="introduction">
+				<a id="introduction">
+					<h1>Intoduction</h1>
+				</a>
+				<p>
+					This is the documentation for UK Police Memorial API Service, it outlines out the use the API Connectors. <br />
+					To use this API you require are public and secret key from the UKPM Trust.
+				</p>
+				<p>
+					This document provides examples for PHP &amp; Javascript if you would like to hide the languages your not using.
+					You can change the display at the bottom of the left hand menu.
+				</p>
+				<div class="lang-selector">
+					<ul class="selected-lang">
+						<li data-for="php" class="lang-option php">PHP</li>
+						<li data-for="js" class="lang-option js">Javascript</li>
+						<li data-for="all" class="lang-option all">All</li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="connectors">
+				<a id="connectors">
+					<h1>Connectors</h1>
+				</a>
+				<p>
+					The connectors are a set of libraries allowing quick and easy communication with the UKPM API Service.
+				</p>
+				<div class="connector-php selector php">
+					<a id="connector-php">
+						<h2>PHP Connector</h2>
+					</a>
+					<p>
+						The php connectors are a objective library that can be installed via <a href="https://getcomposer.org/doc/00-intro.md" target="__blank">Composor</a>
+						<span class="lang">BASH / CMD</span><pre><code class="language-bash">composer require ukpm/php_connector</code></pre>
+					</p>
+					<p>
+						Once installed require the composor vendor &quot;autoload.php&quot;
+						<span class="lang">PHP</span><pre><code class="language-php">require 'vendor/autoload.php';</code></pre>
+					</p>
+					<p>
+						This then allows you to use the library
+						<span class="lang">PHP</span><pre><code class="language-php">use UKPM\Connector;
+use UKPM\Client;
+
+$publicKey = "" /* This should be your public key */;
+$secretKey = "" /* This should be your secret key */;
+
+$connector = new Connector(new Client($publicKey, $secretKey), true);</code></pre>
+					</p>
+				</div>
+				<div class="connector-js selector js">
+					<a id="connector-js">
+						<h2>JavaScript Connector</h2>
+					</a>
+					<p>
+						The JavaScript connector
+						<span class="lang">HTML</span><pre><code class="language-html">&lt;script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/ukpm.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/sodium.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+(async() =&gt; {
+	await sodium.ready;
+	var client_key = "" /* This should be your public key */;
+	var client_secret = "" /* This should be your secret key */;
+
+	var client = new window.UKPM(
+		client_key,
+		client_secret
+	);
+})();
+&lt;/script&gt;</code></pre>
+					</p>
+				</div>
+			</div>
+			<div class="methods">
+				<a id="methods">
+					<h1>Methods</h1>
+					<div class="method_test">
+						<a id="method_test">
+							<h2>Test</h2>
+						</a>
+						<p class="description">This endpoint group is to enable developers to quickly and easily test their connection to the UKPM API Service</p>
+						<div class="method_test_test">
+							<a id="method_test_test">
+								<h3>test</h3>
+							</a>
+							<p class="description">Provides developers a test case for handling a response from the API Server.</p>
+
+							<div class="selector php">
+								<p>
+									&nbsp;
+									<span class="lang php">PHP</span><pre><code class="language-php">$output = $connector-&gt;test-&gt;get();
+print_r($output);</code></pre>
+								</p>
+							</div>
+						<div class="selector js">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('test/test', {}).then(function(result){
+	console.log("Success");
+	console.log(result);
+}).catch(function(err){
+	console.log("failure");
+	console.log(err);
+});</code></pre>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="method_wall">
+						<a id="method_wall">
+							<h2>Wall</h2>
+						</a>
+						<p class="description">Allows access to a set of random profile picutes.</p>
+						<div class="method_wall_get">
+							<a id="method_wall_get">
+								<h3>Get</h3>
+							</a>
+							<p class="description">Provides a list of 40 random profile pictures.</p>
+
+							<div class="selector php">
+								<p>
+									&nbsp;
+									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;wall-&gt;get();</code></pre>
+								</p>
+							</div>
+							<div class="selector js">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('wall/get', {});</code></pre>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="method_officer">
+						<a id="method_officer">
+							<h2>Officer</h2>
+						</a>
+						<p class="description">Allows access information specific to a single officer.</p>
+						<div class="method_officer_get">
+							<a id="method_officer_get">
+								<h3>Get</h3>
+							</a>
+							<p class="description">Provides an officer's information and story if it's exists within the system.</p>
+
+							<div class="selector php">
+								<p>
+									&nbsp;
+									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;officer-&gt;get($officer_id);</code></pre>
+								</p>
+							</div>
+							<div class="selector js">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('officer/get', {"officer_id": officer_id});</code></pre>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="method_ranks">
+						<a id="method_ranks">
+							<h2>Ranks</h2>
+						</a>
+						<p class="description">Allows access of all ranks registered in the system.</p>
+						<div class="method_ranks_list">
+							<a id="method_ranks_list">
+								<h3>List</h3>
+							</a>
+							<p class="description">Provides a list of all ranks in the system.</p>
+
+							<div class="selector php">
+								<p>
+									&nbsp;
+									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;ranks-&gt;list();</code></pre>
+								</p>
+							</div>
+							<div class="selector js">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('ranks/list', {});</code></pre>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="method_forces">
+						<a id="method_forces">
+							<h2>Forces</h2>
+						</a>
+						<p class="description">Allows access to all forces registered in the system.</p>
+						<div class="method_forces_list">
+							<a id="method_forces_list">
+								<h3>List</h3>
+							</a>
+							<p class="description">Provides a list of all forces registered in the system.</p>
+
+							<div class="selector php">
+								<p>
+									&nbsp;
+									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;forces-&gt;list();</code></pre>
+								</p>
+							</div>
+							<div class="selector js">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('forces/list', {});</code></pre>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="method_officers">
+						<a id="method_officers">
+							<h2>Officers</h2>
+						</a>
+						<p class="description">Allows access to all officers registered in the system.</p>
+						<div class="method_officers_force ">
+							<a id="method_officers_force">
+								<h3>ByForce</h3>
+							</a>
+							<p class="description">Provides a list of all officers that died in the given force.</p>
+
+							<div class="selector php">
+								<p>
+									&nbsp;
+									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;officers-&gt;getByForce($force_id);</code></pre>
+								</p>
+							</div>
+							<div class="selector js">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('officers/force', {"force_id": force_id});</code></pre>
+								</p>
+							</div>
+						</div>
+						<div class="method_officers_rank">
+							<a id="method_officers_rank">
+								<h3>byRank</h3>
+							</a>
+							<p class="description">Provides a list of all officers that died within the given rank</p>
+
+							<div class="selector php">
+								<p>
+									&nbsp;
+									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;officers-&gt;getByRank($rank_id);</code></pre>
+								</p>
+							</div>
+							<div class="selector js">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('officers/rank', {"rank_id": rank_id});</code></pre>
+								</p>
+							</div>
+						</div>
+						<div class="method_officers_search">
+							<a id="method_officers_search">
+								<h3>BySearchTerm</h3>
+							</a>
+							<p class="description">Provides a list of all officers that match on the given search term.</p>
+
+							<div class="selector php">
+								<p>
+									&nbsp;
+									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;officers-&gt;getBySearchTerm($searchTerm);</code></pre>
+								</p>
+							</div>
+							<div class="selector js">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('officers/search', {"search_term": search_term});</code></pre>
+								</p>
+							</div>
+						</div>
+						<div class="method_officers_daymonth ">
+							<a id="method_officers_daymonth">
+								<h3>ByDayInMonth</h3>
+							</a>
+							<p class="description">Provides a list of all officers who died on the given day/month.</p>
+
+							<div class="selector php">
+								<p>
+									&nbsp;
+									<span class="lang php">PHP</span><pre><code class="language-php">$connector-&gt;officers-&gt;getByDayInMonth($day, $month);</code></pre>
+								</p>
+							</div>
+							<div class="selector js">
+								<p>
+									&nbsp;
+									<span class="lang js">Javascript</span><pre><code class="language-js">client.post('officers/day', {"day": 01, "month":01});</code></pre>
+								</p>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
